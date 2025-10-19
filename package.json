@@ -1,0 +1,57 @@
+{
+  "name": "apploye-pulse",
+  "displayName": "Apploye Pulse",
+  "version": "1.0.0",
+  "description": "Track your Apploye timesheet progress with real-time progress indicators, holiday management, and smart month-aware calculations. Stay on top of your monthly work goals!",
+  "author": "Mohammad Ali <itsproali@gmail.com>",
+  "homepage": "https://github.com/itsproali/apploye-pulse",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsproali/apploye-pulse.git"
+  },
+  "keywords": [
+    "apploye",
+    "timesheet",
+    "productivity",
+    "time-tracking",
+    "progress",
+    "work-management",
+    "chrome-extension"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "@plasmohq/storage": "^1.9.3",
+    "clsx": "^2.1.0",
+    "date-fns": "^3.0.6",
+    "lucide-react": "^0.344.0",
+    "plasmo": "0.90.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "4.1.1",
+    "@types/chrome": "0.0.258",
+    "@types/node": "20.11.5",
+    "@types/react": "18.2.48",
+    "@types/react-dom": "18.2.18",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "prettier": "3.2.4",
+    "tailwindcss": "^3.4.1",
+    "typescript": "5.3.3"
+  },
+  "manifest": {
+    "host_permissions": [
+      "https://app.apploye.com/*"
+    ],
+    "permissions": [
+      "storage"
+    ]
+  }
+}

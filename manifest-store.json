@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Apploye Pulse",
+  "version": "1.0.0",
+  "description": "Track your Apploye timesheet progress with real-time progress indicators, holiday management, and smart month-aware calculations. Stay on top of your monthly work goals!",
+  "author": "Mohammad Ali <itsproali@gmail.com>",
+  "homepage_url": "https://github.com/itsproali/apploye-pulse",
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Apploye Pulse - Track Your Timesheet Progress"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["https://app.apploye.com/user/timesheet/monthly*"],
+      "js": ["contents/apploye-badge.js"],
+      "css": ["contents/apploye-badge.css"]
+    },
+    {
+      "matches": ["https://app.apploye.com/user/timesheet/monthly*"],
+      "js": ["contents/calendar-holidays.js"],
+      "css": ["contents/calendar-holidays.css"]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://app.apploye.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["https://app.apploye.com/*"]
+    }
+  ]
+}
