@@ -109,3 +109,4 @@ temp/
 
 # Plasmo specific
 build/
+.plasmo
