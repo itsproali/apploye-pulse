@@ -16,6 +16,7 @@ import { Progress } from "~components/ui/progress"
 import type { AppSettings, ProgressData } from "~types"
 import { getSettings } from "~utils/storage"
 import { calculateProgress, formatTime } from "~utils/time-calculations"
+import { VERSION } from "~utils/version"
 
 import "~style.css"
 
@@ -329,6 +330,21 @@ function IndexPopup() {
           <Button variant="outline" className="flex-1" onClick={openOptions}>
             Manage Settings
           </Button>
+        </div>
+
+        {/* Copyright */}
+        <div className="text-center text-xs text-muted-foreground pt-2">
+          <div className="mb-1">v{VERSION}</div>
+          <div>
+            Made with ❤️ by{" "}
+            <a
+              href="https://github.com/itsproali"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline">
+              Mohammad Ali
+            </a>
+          </div>
         </div>
       </div>
     </div>

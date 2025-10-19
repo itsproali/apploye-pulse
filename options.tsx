@@ -24,6 +24,7 @@ import {
   saveSettings
 } from "~utils/storage"
 import { getMonthData } from "~utils/time-calculations"
+import { VERSION } from "~utils/version"
 
 import "~style.css"
 
@@ -411,9 +412,19 @@ function OptionsPage() {
 
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-muted-foreground">
-          <p>Apploye Pulse v0.0.1</p>
+          <p>Apploye Pulse v{VERSION}</p>
           <p className="mt-1">
             Track your progress and stay on top of your goals
+          </p>
+          <p className="mt-2 text-xs">
+            Made with ❤️ by{" "}
+            <a
+              href="https://github.com/itsproali"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline">
+              Mohammad Ali
+            </a>
           </p>
         </div>
       </div>
