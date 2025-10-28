@@ -5,6 +5,15 @@ import type {
 } from "plasmo"
 import { useEffect, useState } from "react"
 
+import {
+  BADGE_SELECTOR,
+  BADGE_WITH_CALENDAR_SELECTOR,
+  CALENDAR_SELECTOR,
+  HOURS_MINUTES_PATTERN,
+  MONTH_HEADER_SELECTOR,
+  MONTH_PICKER_SELECTOR,
+  TOTAL_HOUR_TEXT_PATTERN
+} from "~constants/selectors"
 import type { AppSettings, ProgressData } from "~types"
 import { getSettings } from "~utils/storage"
 import {
@@ -25,14 +34,15 @@ export const getStyle: PlasmoGetStyle = () => {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      margin-right: 1rem;
     }
     
     .badge-container {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.375rem 0.75rem;
-      border-radius: 9999px;
+      padding: 10px 20px;
+      border-radius: 6px;
       font-size: 0.875rem;
       font-weight: 600;
       box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -129,7 +139,7 @@ export const getStyle: PlasmoGetStyle = () => {
 
 // Use Plasmo's inline anchor system
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
-  const badge = document.querySelector(".rbc-calendar .sc-hEUNDx.bnCgVq")
+  const badge = document.querySelector(BADGE_WITH_CALENDAR_SELECTOR)
   if (badge) {
     const badgeText = badge.textContent?.toLowerCase() || ""
     if (badgeText.includes("total hour")) {
@@ -154,7 +164,7 @@ const ProgressBadge = () => {
   )
 
   const detectMonthChange = () => {
-    const monthHeader = document.querySelector(".sc-hQQMGV.hoIpyi")
+    const monthHeader = document.querySelector(MONTH_HEADER_SELECTOR)
     if (monthHeader) {
       const headerText = monthHeader.textContent || ""
       const [monthName, year] = headerText.split(", ")
@@ -177,13 +187,13 @@ const ProgressBadge = () => {
   }
 
   const extractTotalHours = (): string | null => {
-    const totalBadge = document.querySelector(".sc-hEUNDx.bnCgVq")
+    const totalBadge = document.querySelector(BADGE_SELECTOR)
 
     if (totalBadge) {
       const spans = totalBadge.querySelectorAll("span")
       for (const span of spans) {
         const text = span.textContent?.trim() || ""
-        if (/^\d+h\s*\d*m?$/.test(text)) {
+        if (HOURS_MINUTES_PATTERN.test(text)) {
           return text
         }
       }
@@ -193,13 +203,13 @@ const ProgressBadge = () => {
     const allElements = document.querySelectorAll("span, div")
     for (const element of allElements) {
       const text = element.textContent?.toLowerCase() || ""
-      if (text.includes("total hour")) {
+      if (TOTAL_HOUR_TEXT_PATTERN.test(text)) {
         const parent = element.parentElement
         if (parent) {
           const spans = parent.querySelectorAll("span")
           for (const span of spans) {
             const spanText = span.textContent?.trim() || ""
-            if (/^\d+h\s*\d*m?$/.test(spanText)) {
+            if (HOURS_MINUTES_PATTERN.test(spanText)) {
               return spanText
             }
           }
@@ -247,7 +257,7 @@ const ProgressBadge = () => {
   useEffect(() => {
     // Check if target element exists and set visibility
     const checkVisibility = () => {
-      const badge = document.querySelector(".rbc-calendar .sc-hEUNDx.bnCgVq")
+      const badge = document.querySelector(BADGE_WITH_CALENDAR_SELECTOR)
       const exists =
         badge && badge.textContent?.toLowerCase().includes("total hour")
       setIsVisible(!!exists)
@@ -263,8 +273,8 @@ const ProgressBadge = () => {
       const shouldUpdate = mutations.some((mutation) => {
         const target = mutation.target as Element
         return (
-          target.closest(".rbc-calendar") ||
-          target.closest(".react-datepicker-wrapper") || // Month picker
+          target.closest(CALENDAR_SELECTOR) ||
+          target.closest(MONTH_PICKER_SELECTOR) || // Month picker
           target.textContent?.includes("Total Hour") ||
           target.classList.contains("sc-hQQMGV") || // Month header
           (target.textContent?.includes("h") &&
@@ -317,7 +327,7 @@ const ProgressBadge = () => {
   }
 
   // Don't render if it's a different month
-  const monthHeader = document.querySelector(".sc-hQQMGV.hoIpyi")
+  const monthHeader = document.querySelector(MONTH_HEADER_SELECTOR)
   if (monthHeader) {
     const headerText = monthHeader.textContent || ""
     const [monthName, year] = headerText.split(", ")
@@ -431,14 +441,14 @@ const ProgressBadge = () => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "getHours") {
     try {
-      const totalBadge = document.querySelector(".sc-hEUNDx.bnCgVq")
+      const totalBadge = document.querySelector(BADGE_SELECTOR)
       let totalHoursText = null
 
       if (totalBadge) {
         const spans = totalBadge.querySelectorAll("span")
         for (const span of spans) {
           const text = span.textContent?.trim() || ""
-          if (/^\d+h\s*\d*m?$/.test(text)) {
+          if (HOURS_MINUTES_PATTERN.test(text)) {
             totalHoursText = text
             break
           }

@@ -6,6 +6,7 @@ import type {
 } from "plasmo"
 import { useEffect, useState } from "react"
 
+import { DATE_CELL_SELECTOR, MONTH_HEADER_SELECTOR } from "~constants/selectors"
 import { getSettings } from "~utils/storage"
 
 export const config: PlasmoCSConfig = {
@@ -95,9 +96,7 @@ export const getStyle: PlasmoGetStyle = () => {
 
 // Use Plasmo's inline anchor list to attach to all calendar date cells
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
-  const dateCells = document.querySelectorAll(
-    ".rbc-date-cell:not(.rbc-off-range)"
-  )
+  const dateCells = document.querySelectorAll(DATE_CELL_SELECTOR)
   return Array.from(dateCells).map((cell) => ({
     element: cell,
     insertPosition: "afterbegin" as const
@@ -147,7 +146,7 @@ const CalendarHolidayMarker = ({ anchor }: PlasmoCSUIProps) => {
     if (isNaN(day)) return false
 
     // Get current month and year from the calendar header
-    const monthHeader = document.querySelector(".sc-hQQMGV.hoIpyi")
+    const monthHeader = document.querySelector(MONTH_HEADER_SELECTOR)
     if (!monthHeader) return false
 
     const headerText = monthHeader.textContent || ""
