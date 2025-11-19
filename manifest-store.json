@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Apploye Pulse",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Track your Apploye timesheet progress with real-time progress indicators, holiday management, and smart month-aware calculations. Stay on top of your monthly work goals!",
   "author": "Mohammad Ali <itsproali@gmail.com>",
   "homepage_url": "https://github.com/itsproali/apploye-pulse",

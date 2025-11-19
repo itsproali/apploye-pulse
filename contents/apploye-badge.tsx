@@ -276,7 +276,8 @@ const ProgressBadge = () => {
           target.closest(CALENDAR_SELECTOR) ||
           target.closest(MONTH_PICKER_SELECTOR) || // Month picker
           target.textContent?.includes("Total Hour") ||
-          target.classList.contains("sc-hQQMGV") || // Month header
+          target.classList.contains("sc-gzpZyF") || // Month header container
+          target.classList.contains("sc-meaPv") || // Month header text
           (target.textContent?.includes("h") &&
             target.textContent?.includes("m"))
         )
